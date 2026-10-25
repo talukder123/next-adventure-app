@@ -6,8 +6,9 @@ import Link from "next/link";
 import { Menu, User, X } from "lucide-react";
 
 const links = [
-  { label: "Home", href: "#home", active: true },
-  { label: "Destinations", href: "#destinations" },
+  { label: "Home", href: "/", active: true },
+  { label: "Destinations", href: "/destinations" },
+  { label: "Add Destination", href: "/add-destination"},
   { label: "My Bookings", href: "#bookings" },
   { label: "Admin", href: "#admin" },
 ];
