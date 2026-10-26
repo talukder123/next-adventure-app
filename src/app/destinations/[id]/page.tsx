@@ -1,8 +1,13 @@
+import DeleteDestination from '@/components/deleteDestination';
 import EditDestination from '@/components/edit-destination';
 import Image from 'next/image';
 import React from 'react';
 
-const DestinationDetailsPage = async ({ params }) => {
+type Props = {
+    params: Promise<{ id: string }>;
+};
+
+const DestinationDetailsPage = async ({ params}: Props) => {
     const { id } = await params
 
     // calling the api
@@ -100,8 +105,9 @@ const DestinationDetailsPage = async ({ params }) => {
                         <button className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700">
                             Book This Trip
                         </button>
-
                         <EditDestination destination={data}></EditDestination>
+
+                        <DeleteDestination id={id}></DeleteDestination>
 
                         <button
                             
