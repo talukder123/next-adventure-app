@@ -1,3 +1,4 @@
+import EditDestination from '@/components/edit-destination';
 import Image from 'next/image';
 import React from 'react';
 
@@ -99,6 +100,8 @@ const DestinationDetailsPage = async ({ params }) => {
                         <button className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700">
                             Book This Trip
                         </button>
+
+                        <EditDestination destination={data}></EditDestination>
 
                         <button
                             
