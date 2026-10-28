@@ -4,17 +4,40 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, User, X } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+// import { Button } from "@base-ui/react";
+import { Button } from "@/components/ui/button";
 
 const links = [
   { label: "Home", href: "/", active: true },
   { label: "Destinations", href: "/destinations" },
-  { label: "Add Destination", href: "/add-destination"},
+  { label: "Add Destination", href: "/add-destination" },
   { label: "My Bookings", href: "#bookings" },
   { label: "Admin", href: "#admin" },
 ];
 
 export default function Navbar() {
+
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+
   const [open, setOpen] = useState(false);
+
+  const handleSignOut =() => {
+    authClient.signOut();
+  }
 
   return (
     <header className="mb-10 sticky top-0 z-50 border-b border-slate-200/80 bg-white">
@@ -35,11 +58,10 @@ export default function Navbar() {
             <a
               key={link.label}
               href={link.href}
-              className={`relative py-1 text-[13px] font-semibold transition-colors hover:text-brand ${
-                link.active
-                  ? "text-brand after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-brand"
-                  : "text-slate-700"
-              }`}
+              className={`relative py-1 text-[13px] font-semibold transition-colors hover:text-brand ${link.active
+                ? "text-brand after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-brand"
+                : "text-slate-700"
+                }`}
             >
               {link.label}
             </a>
@@ -62,25 +84,51 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-5">
-          <a
+          <Link
             href="#profile"
             className="hidden items-center gap-1.5 text-[13px] font-semibold text-slate-700 transition-colors hover:text-brand sm:flex"
           >
             <User className="size-3.5" strokeWidth={2.2} />
             Profile
-          </a>
-          <a
+          </Link>
+
+          {
+            user ? <Popover>
+            <PopoverTrigger render={
+              <Avatar>
+                <AvatarImage src={user?.image as string} />
+                <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+            }>
+              Open Popover
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverHeader>
+                <PopoverTitle>{user?.name}</PopoverTitle>
+                <PopoverDescription>{user?.email}</PopoverDescription>
+                <Button onClick={handleSignOut} variant={'destructive'}>Sign out</Button>
+              </PopoverHeader>
+            </PopoverContent>
+          </Popover> 
+          :
+           <>
+          <Link
             href="/signin"
             className="hidden text-[13px] font-semibold text-slate-700 transition-colors hover:text-brand md:block"
           >
             Sign in
-          </a>
-          <a
+          </Link>
+          <Link
             href="/signup"
             className="text-[13px] font-semibold text-slate-700 transition-colors hover:text-brand"
           >
             Sign Up
-          </a>
+          </Link>
+          </>
+          }
+
+
+          
         </div>
       </div>
 
@@ -95,9 +143,8 @@ export default function Navbar() {
               key={link.label}
               href={link.href}
               onClick={() => setOpen(false)}
-              className={`block rounded-md px-2 py-2.5 text-sm font-semibold transition-colors hover:bg-slate-50 ${
-                link.active ? "text-brand" : "text-slate-700"
-              }`}
+              className={`block rounded-md px-2 py-2.5 text-sm font-semibold transition-colors hover:bg-slate-50 ${link.active ? "text-brand" : "text-slate-700"
+                }`}
             >
               {link.label}
             </a>

@@ -25,12 +25,12 @@ import { redirect } from "next/navigation";
 export default function SignUpPage() {
 
     // ei fns tai sign-up data collect kortese!
-    const handleSignUp = async (e: React.SubmitEvent<HTMLElement>) => {
+    const handleSignIn = async (e: React.SubmitEvent<HTMLElement>) => {
         e.preventDefault();
 
         const formData = new FormData(e.target)
 
-        const user = Object.fromEntries(formData.entries()) as { name: string, image: string, email: string, password: string }
+        const user = Object.fromEntries(formData.entries()) as {name: string, image: string, email: string, password: string }
 
         const { data, error } = await authClient.signUp.email({
             ...user
@@ -56,7 +56,7 @@ export default function SignUpPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={handleSignUp}>
+                    <form onSubmit={handleSignIn}>
                         <FieldGroup>
                             <Field>
                                 <Button variant="outline" type="button">
@@ -132,7 +132,7 @@ export default function SignUpPage() {
                             <Field>
                                 <Button type="submit">Sign up</Button>
                                 <FieldDescription className="text-center">
-                                    Have an account? <Link href="/login">Log in</Link>
+                                    Have an account? <Link href="/signin">Log in</Link>
                                 </FieldDescription>
                             </Field>
                         </FieldGroup>
