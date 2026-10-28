@@ -17,7 +17,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white">
+    <header className="mb-10 sticky top-0 z-50 border-b border-slate-200/80 bg-white">
       <div className="relative mx-auto flex h-16 max-w-[1440px] items-center justify-between px-5 sm:px-8">
         <button
           type="button"
@@ -70,13 +70,13 @@ export default function Navbar() {
             Profile
           </a>
           <a
-            href="#login"
+            href="/signin"
             className="hidden text-[13px] font-semibold text-slate-700 transition-colors hover:text-brand md:block"
           >
-            Login
+            Sign in
           </a>
           <a
-            href="#signup"
+            href="/signup"
             className="text-[13px] font-semibold text-slate-700 transition-colors hover:text-brand"
           >
             Sign Up
