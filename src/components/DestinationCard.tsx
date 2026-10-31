@@ -1,13 +1,18 @@
+"use client";
 
 import Image from "next/image";
 import type { IDestination } from "@/types/destination";
 import Link from "next/link";
+
 
 interface DestinationCardProps {
     destination: IDestination;
 }
 
 const DestinationCard = ({ destination }: DestinationCardProps) => {
+
+    // console.log(destination);
+
     return (
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
             {/* Destination Image */}
